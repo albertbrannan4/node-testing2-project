@@ -4,5 +4,5 @@ const UserRouter = require("./User/user-router");
 const server = express();
 
 server.use(express.json());
-server.use("/user", UserRouter);
+server.use("/api/user", UserRouter);
 module.exports = server;
