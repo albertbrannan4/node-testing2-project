@@ -21,4 +21,14 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.post("/", (req, res) => {
+  User.insert(req.body)
+    .then((result) => {
+      res.status(201).json(result);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: `User was not created:${err}` });
+    });
+});
+
 module.exports = router;

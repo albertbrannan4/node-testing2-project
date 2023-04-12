@@ -1,4 +1,3 @@
-const router = require("./user-router");
 const request = require("supertest");
 const server = require("../server");
 const db = require("../../data/db-config");
@@ -15,7 +14,7 @@ beforeEach(async () => {
   await db.seed.run();
 });
 
-describe("router getting users", () => {
+describe("[get] router getting users", () => {
   test("getting all users", async () => {
     const res = await request(server).get("/api/users");
     expect(res.body).toHaveLength(2);
@@ -31,7 +30,15 @@ describe("router getting users", () => {
     expect(res.status).toBe(200);
   });
 });
-describe("router creating users", () => {
-  test.todo("router responds with newly created user");
-  test.todo("new user is added to the users table");
+describe("[post] router creating users", () => {
+  const newUser = { username: "noel", password: "coolCat" };
+  test("router responds with newly created user", async () => {
+    const res = await request(server).post("/api/users").send(newUser);
+    expect(res.body).toMatchObject(newUser);
+    expect(res.status).toBe(201);
+  });
+  test("new user is added to the users table", async () => {
+    await request(server).post("/api/users").send(newUser);
+    expect(await db("users")).toHaveLength(3);
+  });
 });
