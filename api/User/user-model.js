@@ -10,7 +10,16 @@ async function getById(id) {
   return result;
 }
 
+async function insert(newUser) {
+  return db("users")
+    .insert(newUser)
+    .then(([result]) => {
+      return db("users").where("id", result).first();
+    });
+}
+
 module.exports = {
   getAll,
   getById,
+  insert,
 };

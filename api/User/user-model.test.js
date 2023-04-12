@@ -35,6 +35,14 @@ describe("get users", () => {
 });
 
 describe("adding users", () => {
-  test.todo("resolves the newly created user");
-  test.todo("add the user to the users table");
+  const newUser = { username: "lucky", password: "coolCat" };
+  test("resolves the newly created user", async () => {
+    const result = await User.insert(newUser);
+    expect(result).toMatchObject(newUser);
+  });
+  test("add the user to the users table", async () => {
+    await User.insert(newUser);
+    const allUsers = await db("users");
+    expect(allUsers).toHaveLength(3);
+  });
 });
