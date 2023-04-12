@@ -15,7 +15,15 @@ test("environment is testing", () => {
 });
 
 describe("get users", () => {
-  test.todo("receives all the users in the table");
+  test("receives all the users in the table", async () => {
+    const result = await User.getAll();
+    expect(result).toHaveLength(2);
+    expect(result[0]).toMatchObject({
+      id: 1,
+      username: "admin",
+      password: "123",
+    });
+  });
   test.todo("receives user by that specific id");
 });
 
