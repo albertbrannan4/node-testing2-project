@@ -24,7 +24,14 @@ describe("get users", () => {
       password: "123",
     });
   });
-  test.todo("receives user by that specific id");
+  test("receives user by that specific id", async () => {
+    const result = await User.getById(2);
+    expect(result).toMatchObject({
+      id: 2,
+      username: "albert",
+      password: "123",
+    });
+  });
 });
 
 describe("adding users", () => {

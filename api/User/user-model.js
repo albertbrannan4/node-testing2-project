@@ -5,6 +5,12 @@ async function getAll() {
   return result;
 }
 
+async function getById(id) {
+  const result = await db("users").where("id", id).first();
+  return result;
+}
+
 module.exports = {
   getAll,
+  getById,
 };
